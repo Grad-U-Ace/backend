@@ -28,6 +28,7 @@ class Message(Base):
     __tablename__ = "messages"
     id = Column(Integer, primary_key=True)
     customer_name = Column(String, index=True)
+    tags = Column(String)
     product_id = Column(Integer, ForeignKey("products.id"))
 
     replies = relationship("Reply", back_populates="message")

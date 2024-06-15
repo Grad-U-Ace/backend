@@ -38,6 +38,7 @@ def get_message_by_id(db: Session, message_id: int):
 def get_reply_by_id(db: Session, reply_id: int):
     return db.query(models.Reply).filter(models.Reply.id == reply_id).first()
 
+
 def create_ecommerce(db: Session, ecommerce: schemas.EcommerceCreate):
     db_ecommerce = models.Ecommerce(**ecommerce.dict())
     db.add(db_ecommerce)
@@ -58,6 +59,14 @@ def create_product(db: Session, product: schemas.ProductCreate, ecommerce_name: 
 def create_message(db: Session, message: schemas.MessageCreate, product_id: int):
     db_message = models.Message(**message.dict(), product_id=product_id)
     db.add(db_message)
+    db.commit()
+    db.refresh(db_message)
+    return db_message
+
+
+def update_message(db: Session, message: schemas.MessageCreate, message_id: int):
+    db_message = db.query(models.Message).filter(models.Message.id == message_id).first()
+    db_message.tags = message.tags
     db.commit()
     db.refresh(db_message)
     return db_message

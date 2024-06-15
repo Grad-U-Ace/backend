@@ -133,8 +133,12 @@ def ask_for_sentiment(reply_id: int, db: Session = Depends(get_db)):
         return completion.choices[0].message
     else:
         raise HTTPException(status_code=404, detail="Reply not found")
-# - conversation tagging
 
+
+# - conversation tagging
+@app.put("/ecommerce/{ecommerce_name}/product/{product_id}/message/{message_id}", response_model=schemas.Message)
+def change_message_tag(message_id: int, message: schemas.MessageCreate, db: Session = Depends(get_db)):
+    return crud.update_message(db=db, message=message, message_id=message_id)
 
 @app.get("/")
 def read_root():

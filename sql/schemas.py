@@ -24,6 +24,7 @@ class Reply(ReplyBase):
 
 class MessageBase(BaseModel):
     customer_name: str
+    tags: str = 'default'
 
 
 class MessageCreate(MessageBase):
