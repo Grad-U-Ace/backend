@@ -157,6 +157,19 @@
 				"url": "{{host}}/ecommerce/Tokopedia/product/1/message/1/reply/4/translate"
 			},
 			"response": []
+		},
+		{
+			"name": "Get Message Summary",
+			"id": "db42111a-2504-41cb-b04e-de434f6461e1",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{host}}/ecommerce/Tokopedia/product/1/message/1/summarize"
+			},
+			"response": []
 		}
 	],
 	"event": [
