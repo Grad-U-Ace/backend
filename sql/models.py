@@ -8,6 +8,7 @@ class Ecommerce(Base):
     __tablename__ = "ecommerces"
     id = Column(Integer, primary_key=True)
     name = Column(String, index=True)
+
     products = relationship("Product", back_populates="ecommerce")
 
 

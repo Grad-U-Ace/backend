@@ -43,13 +43,28 @@ def create_ecommerce(ecommerce: schemas.EcommerceCreate, db: Session = Depends(g
     return crud.create_ecommerce(db=db, ecommerce=ecommerce)
 
 
-@app.post("/ecommerce/{ecommerce_name}/product", response_model=schemas.Product)
+@app.post("/ecommerce/{ecommerce_name}/product/", response_model=schemas.Product)
 def create_product(ecommerce_name: str, product: schemas.ProductCreate, db: Session = Depends(get_db)):
     db_product = crud.get_products_by_product_name(db, product_name=product.name)
     if db_product:
         raise HTTPException(status_code=400, detail="Product already registered")
 
     return crud.create_product(db=db, product=product, ecommerce_name=ecommerce_name)
+
+@app.post("/ecommerce/{ecommerce_name}/product/{product_id}/message/", response_model=schemas.Message)
+def create_message(product_id: int, message: schemas.MessageCreate, db: Session = Depends(get_db)):
+    db_message = crud.get_message_by_name(db, message_customer_name=message.customer_name)
+    if db_message:
+        raise HTTPException(status_code=400, detail="User already registered")
+
+    return crud.create_message(db=db, message=message, product_id=product_id)
+
+
+@app.post("/ecommerce/{ecommerce_name}/product/{product_id}/message/{message_id}/reply", response_model=schemas.Reply)
+def create_reply(message_id: int, reply: schemas.ReplyCreate, db: Session = Depends(get_db)):
+    return crud.create_reply(db=db, reply=reply, message_id=message_id)
+
+
 
 @app.get("/")
 def read_root():

@@ -27,6 +27,9 @@ def get_products_by_product_name(db: Session, product_name: str):
     return db.query(models.Product).filter(models.Product.name == product_name).first()
 
 
+def get_message_by_name(db: Session, message_customer_name: str):
+    return db.query(models.Message).filter(models.Message.customer_name == message_customer_name).first()
+
 
 def get_message_by_id(db: Session, message_id: int):
     return db.query(models.Message).filter(models.Message.id == message_id).first()
@@ -52,7 +55,7 @@ def create_product(db: Session, product: schemas.ProductCreate, ecommerce_name: 
     return db_product
 
 
-def create_message(db: Session, message: schemas.MessageCreate, product_id: str):
+def create_message(db: Session, message: schemas.MessageCreate, product_id: int):
     db_message = models.Message(**message.dict(), product_id=product_id)
     db.add(db_message)
     db.commit()
@@ -60,7 +63,7 @@ def create_message(db: Session, message: schemas.MessageCreate, product_id: str)
     return db_message
 
 
-def create_reply(db: Session, reply: schemas.MessageCreate, message_id: str):
+def create_reply(db: Session, reply: schemas.ReplyCreate, message_id: int):
     db_reply = models.Reply(**reply.dict(), message_id=message_id)
     db.add(db_reply)
     db.commit()

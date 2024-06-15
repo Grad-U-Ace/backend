@@ -4,35 +4,19 @@ from datetime import datetime
 from pydantic import BaseModel
 
 
-class ProductBase(BaseModel):
-    name: str
-    price: int
-    description: str
+class ReplyBase(BaseModel):
+    sender: str
+    content: str
+    created_at: datetime = datetime.now()
 
 
-class ProductCreate(ProductBase):
+class ReplyCreate(ReplyBase):
     pass
 
 
-class Product(ProductBase):
+class Reply(ReplyBase):
     id: int
-    ecommerce_id: int
-
-    class Config:
-        orm_mode = True
-
-
-class EcommerceBase(BaseModel):
-    name: str
-
-
-class EcommerceCreate(EcommerceBase):
-    pass
-
-
-class Ecommerce(EcommerceBase):
-    id: int
-    products: list[Product] = []
+    message_id: int
 
     class Config:
         orm_mode = True
@@ -49,24 +33,42 @@ class MessageCreate(MessageBase):
 class Message(MessageBase):
     id: int
     product_id: int
+    replies: list[Reply]
 
     class Config:
         orm_mode = True
 
 
-class ReplyBase(BaseModel):
-    sender: str
-    content: str
-    date_created: datetime = datetime.now()
+class ProductBase(BaseModel):
+    name: str
+    price: int
+    description: str
 
 
-class ReplyCreate(ReplyBase):
+class ProductCreate(ProductBase):
     pass
 
 
-class Reply(ReplyBase):
+class Product(ProductBase):
     id: int
-    message_id: int
+    ecommerce_id: int
+    messages: list[Message] = []
+
+    class Config:
+        orm_mode = True
+
+
+class EcommerceBase(BaseModel):
+    name: str
+
+
+class EcommerceCreate(EcommerceBase):
+    pass
+
+
+class Ecommerce(EcommerceBase):
+    id: int
+    products: list[Product] = []
 
     class Config:
         orm_mode = True
