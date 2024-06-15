@@ -1,6 +1,7 @@
 from typing import Union
 
 from fastapi import FastAPI, Depends, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 from openai import OpenAI
 from sqlalchemy.orm import Session
@@ -14,6 +15,16 @@ models.Base.metadata.create_all(bind=engine)
 load_dotenv()
 app = FastAPI()
 client = OpenAI()
+
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Dependency
 def get_db():
