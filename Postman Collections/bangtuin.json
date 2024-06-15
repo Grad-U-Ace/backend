@@ -144,6 +144,19 @@
 				"url": "{{host}}/ecommerce/Tokopedia/product/1/message/1/reply/4/sentiment"
 			},
 			"response": []
+		},
+		{
+			"name": "Get Reply Translation",
+			"id": "39e6737a-549f-41dc-a405-82788cd57cc8",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{host}}/ecommerce/Tokopedia/product/1/message/1/reply/4/translate"
+			},
+			"response": []
 		}
 	],
 	"event": [
