@@ -98,7 +98,7 @@
 			"response": []
 		},
 		{
-			"name": "Create Product Message Copy",
+			"name": "Update Product Message",
 			"id": "6fb80965-2faa-4597-b885-114355d33db4",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
