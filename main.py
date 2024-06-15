@@ -81,8 +81,42 @@ def ask_for_answer(reply_id: int, db: Session = Depends(get_db)):
         return completion.choices[0].message
     else:
         raise HTTPException(status_code=404, detail="Reply not found")
+
 # - support multi language
+@app.get("/ecommerce/{ecommerce_name}/product/{product_id}/message/{message_id}/reply/{reply_id}/translate")
+def ask_for_translation(reply_id: int, db: Session = Depends(get_db)):
+    reply = crud.get_reply_by_id(db=db, reply_id=reply_id)
+    if reply:
+        completion = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": "Translate the following sentences to Bahasa Indonesia"},
+                {"role": "user", "content": f"{reply.content}"},
+            ]
+        )
+
+        return completion.choices[0].message
+    else:
+        raise HTTPException(status_code=404, detail="Reply not found")
+
 # - summarize conv
+@app.get("/ecommerce/{ecommerce_name}/product/{product_id}/message/{message_id}/summarize")
+def ask_for_summary(message_id: int, db: Session = Depends(get_db)):
+    message = crud.get_message_by_id(db=db, message_id=message_id)
+    print([reply.__dict__['content'] for reply in message.replies])
+    if message:
+        completion = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": "Summarize the following conversation."},
+                {"role": "user", "content": f"{[reply.__dict__['content'] for reply in message.replies]}"},
+            ]
+        )
+
+        return completion.choices[0].message
+    else:
+        raise HTTPException(status_code=404, detail="Reply not found")
+
 # - sentiment analysis
 @app.get("/ecommerce/{ecommerce_name}/product/{product_id}/message/{message_id}/reply/{reply_id}/sentiment")
 def ask_for_sentiment(reply_id: int, db: Session = Depends(get_db)):
