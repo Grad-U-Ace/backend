@@ -65,6 +65,42 @@ def create_reply(message_id: int, reply: schemas.ReplyCreate, db: Session = Depe
     return crud.create_reply(db=db, reply=reply, message_id=message_id)
 
 
+# - intelligent agent
+@app.get("/ecommerce/{ecommerce_name}/product/{product_id}/message/{message_id}/reply/{reply_id}/ask")
+def ask_for_answer(reply_id: int, db: Session = Depends(get_db)):
+    reply = crud.get_reply_by_id(db=db, reply_id=reply_id)
+    if reply:
+        completion = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", "content": f"What is the proper answer to this question? {reply.content}"},
+            ]
+        )
+
+        return completion.choices[0].message
+    else:
+        raise HTTPException(status_code=404, detail="Reply not found")
+# - support multi language
+# - summarize conv
+# - sentiment analysis
+@app.get("/ecommerce/{ecommerce_name}/product/{product_id}/message/{message_id}/reply/{reply_id}/sentiment")
+def ask_for_sentiment(reply_id: int, db: Session = Depends(get_db)):
+    reply = crud.get_reply_by_id(db=db, reply_id=reply_id)
+    if reply:
+        completion = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": "For every prompt that you are given, gives a sentiment analysis for the sentences given. Answer with only one word between neutral, positive, or negative. "},
+                {"role": "user", "content": f"{reply.content}"},
+            ]
+        )
+
+        return completion.choices[0].message
+    else:
+        raise HTTPException(status_code=404, detail="Reply not found")
+# - conversation tagging
+
 
 @app.get("/")
 def read_root():
