@@ -1,0 +1,180 @@
+{
+	"info": {
+		"_postman_id": "e31ffdf7-53d8-4a95-8fed-bd3f192c6b12",
+		"name": "Bangtuin",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Sanity Check",
+			"id": "d65efa98-d4a2-4ab9-b979-4f3e17d89487",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{host}}/chat"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Ecommerce Data",
+			"id": "e517dcdd-0227-4d8d-8951-f986d194c6d2",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{host}}/ecommerce/"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Ecommerce Data",
+			"id": "7855bb25-82be-4da3-a9b8-1bbca1bc97d3",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Shopee\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{host}}/ecommerce/"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Ecommerce Product",
+			"id": "12bcdc42-c053-4afd-beed-ea9f4a3fd714",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Alat Pancing Besar\",\r\n    \"price\": 1000000,\r\n    \"description\": \"Alat pancing mahal\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{host}}/ecommerce/Tokopedia/product"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Product Message",
+			"id": "d2df78ce-19d1-4f03-a56b-433c4d71b674",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"customer_name\": \"Pelanggan 2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{host}}/ecommerce/Tokopedia/product/1/message"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Reply",
+			"id": "5105449b-550d-429a-b40f-c7f19fc014ed",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"sender\": \"customer\",\r\n    \"content\": \"This product is very good.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{host}}/ecommerce/Tokopedia/product/1/message/1/reply"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Reply Suggestion",
+			"id": "fb3d7da0-4d95-4b66-9835-92c6a04cdc4b",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{host}}/ecommerce/Tokopedia/product/1/message/1/reply/3/ask"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Reply Sentiment",
+			"id": "5624a289-e59c-491a-9955-2fcb3138e09e",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{host}}/ecommerce/Tokopedia/product/1/message/1/reply/4/sentiment"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "7f49e494-88b2-4980-b6cb-6c27d53edaf9",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "b2723a9b-cea6-4e47-9287-7228b568b942",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "localhost:8000",
+			"type": "string"
+		}
+	]
+}
