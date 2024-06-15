@@ -43,9 +43,13 @@ def create_ecommerce(ecommerce: schemas.EcommerceCreate, db: Session = Depends(g
     return crud.create_ecommerce(db=db, ecommerce=ecommerce)
 
 
-@app.post("/ecommerce/{ecommerce_name}/product", response_model=schemas.Ecommerce)
+@app.post("/ecommerce/{ecommerce_name}/product", response_model=schemas.Product)
 def create_product(ecommerce_name: str, product: schemas.ProductCreate, db: Session = Depends(get_db)):
-    return crud.create_ecommerce(db=db, product=product, ecommerce=ecommerce_name)
+    db_product = crud.get_products_by_product_name(db, product_name=product.name)
+    if db_product:
+        raise HTTPException(status_code=400, detail="Product already registered")
+
+    return crud.create_product(db=db, product=product, ecommerce_name=ecommerce_name)
 
 @app.get("/")
 def read_root():

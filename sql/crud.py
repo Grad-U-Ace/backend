@@ -23,6 +23,11 @@ def get_products_by_ecommerce_id(db: Session, ecommerce_id: int):
     return db.query(models.Product).filter(models.Product.ecommerce_id == ecommerce_id).first()
 
 
+def get_products_by_product_name(db: Session, product_name: str):
+    return db.query(models.Product).filter(models.Product.name == product_name).first()
+
+
+
 def get_message_by_id(db: Session, message_id: int):
     return db.query(models.Message).filter(models.Message.id == message_id).first()
 
