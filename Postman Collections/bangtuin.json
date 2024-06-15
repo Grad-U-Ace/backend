@@ -98,6 +98,28 @@
 			"response": []
 		},
 		{
+			"name": "Create Product Message Copy",
+			"id": "6fb80965-2faa-4597-b885-114355d33db4",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"customer_name\": \"Pelanggan 2\",\r\n    \"tags\": \"Priority\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{host}}/ecommerce/Tokopedia/product/1/message/1"
+			},
+			"response": []
+		},
+		{
 			"name": "Create Reply",
 			"id": "5105449b-550d-429a-b40f-c7f19fc014ed",
 			"protocolProfileBehavior": {
